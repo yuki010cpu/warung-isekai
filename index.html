@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warung Isekai - by Yukii</title>
+<style>
+body {
+  margin:0;
+  font-family:Poppins,sans-serif;
+  background:linear-gradient(to bottom,#1a1a40,#0f052d);
+  color:white;
+}
+
+header {
+  text-align:center;
+  padding:2rem;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(8px);
+}
+header h1 {
+  font-size:2.5rem;
+  color:#ffccff;
+  text-shadow:0 0 15px #b400ff;
+}
+header p {
+  color:#d0c0ff;
+}
+
+.kategori {
+  margin:1rem;
+  border-radius:12px;
+  overflow:hidden;
+  background:rgba(255,255,255,0.08);
+}
+.kategori h2 {
+  margin:0;
+  padding:1rem;
+  cursor:pointer;
+  background:rgba(255,255,255,0.1);
+  text-shadow:0 0 8px #7a33ff;
+}
+
+.items {
+  display: none; /* AWALNYA TERSEMBUNYI */
+  padding:1rem;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap:1rem;
+  display: grid; /* grid tetap diterapkan saat toggle di JS */
+}
+
+.item {
+  background:rgba(255,255,255,0.08);
+  border-radius:12px;
+  padding:1rem;
+  text-align:center;
+  transition:0.3s;
+}
+.item:hover {
+  transform:translateY(-5px);
+  box-shadow:0 0 15px #7a33ff;
+}
+.item img {
+  max-height:100px;
+  margin-bottom:0.5rem;
+}
+.item h3 {
+  font-size:1rem;
+  margin:0.5rem 0;
+  color:#ffccff;
+}
+.item button {
+  background:#7a33ff;
+  border:none;
+  padding:0.5rem 1rem;
+  border-radius:8px;
+  color:white;
+  cursor:pointer;
+  transition:0.3s;
+}
+.item button:hover {
+  background:#b400ff;
+}
+
+#keranjang {
+  margin:2rem;
+  padding:1rem;
+  background:rgba(255,255,255,0.08);
+  border-radius:12px;
+}
+#keranjang h2 {
+  margin-top:0;
+  color:#ffccff;
+}
+#checkout {
+  background:#00cc66;
+  border:none;
+  padding:0.7rem 1.5rem;
+  border-radius:8px;
+  color:white;
+  cursor:pointer;
+  margin-top:1rem;
+}
+#checkout:hover {
+  background:#00994d;
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Warung Isekai</h1>
+<p>Tempat jual perlengkapan isekai by Yukii ✨</p>
+</header>
+
+<main>
+<!-- Kategori Pedang -->
+<div class="kategori">
+<h2 onclick="toggleItems(this)">⚔️ Pedang</h2>
+<div class="items">
+<div class="item"><img src="images/sword.png" alt="Excalibur"><h3>Excalibur</h3><button onclick="tambahKeranjang('Excalibur')">Beli</button></div>
+<div class="item"><img src="images/katana.png" alt="Katana Neraka"><h3>Katana Neraka</h3><button onclick="tambahKeranjang('Katana Neraka')">Beli</button></div>
+<div class="item"><img src="images/flame-sword.png" alt="Pedang Api"><h3>Pedang Api</h3><button onclick="tambahKeranjang('Pedang Api')">Beli</button></div>
+<div class="item"><img src="images/ice-sword.png" alt="Pedang Es"><h3>Pedang Es</h3><button onclick="tambahKeranjang('Pedang Es')">Beli</button></div>
+</div>
+</div>
+
+<!-- Kategori Tongkat -->
+<div class="kategori">
+<h2 onclick="toggleItems(this)">🪄 Tongkat Sihir</h2>
+<div class="items">
+<div class="item"><img src="images/magic-staff.png" alt="Tongkat Void"><h3>Tongkat Void</h3><button onclick="tambahKeranjang('Tongkat Void')">Beli</button></div>
+<div class="item"><img src="images/staff-dark.png" alt="Tongkat Cahaya"><h3>Tongkat Cahaya</h3><button onclick="tambahKeranjang('Tongkat Cahaya')">Beli</button></div>
+<div class="item"><img src="images/staff-dark.png" alt="Tongkat Kegelapan"><h3>Tongkat Kegelapan</h3><button onclick="tambahKeranjang('Tongkat Kegelapan')">Beli</button></div>
+<div class="item"><img src="images/staff-dark.png" alt="Tongkat Alam"><h3>Tongkat Alam</h3><button onclick="tambahKeranjang('Tongkat Alam')">Beli</button></div>
+</div>
+</div>
+
+<!-- Kategori Ramuan -->
+<div class="kategori">
+<h2 onclick="toggleItems(this)">🧪 Ramuan</h2>
+<div class="items">
+<div class="item"><img src="images/potion.png" alt="Elixir Abadi"><h3>Elixir Abadi</h3><button onclick="tambahKeranjang('Elixir Abadi')">Beli</button></div>
+<div class="item"><img src="images/potion.png" alt="Ramuan Kehidupan"><h3>Ramuan Kehidupan</h3><button onclick="tambahKeranjang('Ramuan Kehidupan')">Beli</button></div>
+<div class="item"><img src="images/potion-fire.png" alt="Ramuan Api"><h3>Ramuan Api</h3><button onclick="tambahKeranjang('Ramuan Api')">Beli</button></div>
+<div class="item"><img src="images/potion-fire.png" alt="Ramuan Es"><h3>Ramuan Es</h3><button onclick="tambahKeranjang('Ramuan Es')">Beli</button></div>
+</div>
+</div>
+
+<!-- Keranjang -->
+<div id="keranjang">
+<h2>🛒 Keranjang</h2>
+<ul id="listKeranjang"></ul>
+<button id="checkout" onclick="checkout()">Checkout</button>
+</div>
+</main>
+
+<script>
+// Sembunyikan semua items saat halaman pertama kali dibuka
+window.addEventListener("DOMContentLoaded", () => {
+  const allItems = document.querySelectorAll(".items");
+  allItems.forEach(div => {
+    div.style.display = "none"; // pastikan tersembunyi
+  });
+});
+
+function toggleItems(el){
+  let items = el.nextElementSibling;
+  if(items.style.display === "grid"){
+    items.style.display = "none";
+  } else {
+    items.style.display = "grid";
+  }
+}
+
+let keranjang = [];
+function tambahKeranjang(item){
+  keranjang.push(item);
+  updateKeranjang();
+}
+function updateKeranjang(){
+  let list = document.getElementById("listKeranjang");
+  list.innerHTML = "";
+  keranjang.forEach(i=>{
+    let li = document.createElement("li");
+    li.textContent = i;
+    list.appendChild(li);
+  });
+}
+function checkout(){
+  if(keranjang.length === 0){
+    alert("Keranjang masih kosong!");
+    return;
+  }
+  let pesan = "Halo, saya mau beli:\n" + keranjang.map(i=>"- "+i).join("\n");
+  let url = "https://wa.me/6288239439351?text=" + encodeURIComponent(pesan);
+  window.open(url,"_blank");
+}
+</script>
+</body>
+</html>
