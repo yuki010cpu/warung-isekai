@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Warung Isekai - by Yukii</title>
 <style>
+/* Efek muncul (summon) */
+.item {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.item.show {
+  opacity: 1;
+  transform: translateY(0);
+}
 body {
   margin:0;
   font-family:Poppins,sans-serif;
@@ -33,7 +44,20 @@ header p{color:#d0c0ff;}
 .kategori h2{margin:0;padding:1rem;cursor:pointer;color:#e0d4ff;text-shadow:0 0 8px #9d4edd;}
 
 /* Items grid */
-.items{display:none;padding:1rem;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.2rem;}
+/* Default untuk layar besar (PC/laptop) */
+.items {
+  display:none;
+  padding:1rem;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:1.2rem;
+}
+
+/* Khusus layar kecil (HP) */
+@media (max-width:600px){
+  .items {
+    grid-template-columns:repeat(2,1fr); /* ✅ selalu 2 kolom di HP */
+  }
+}
 
 /* Item Card */
 .item{background:rgba(255,255,255,0.07);border-radius:12px;padding:1rem;text-align:center;transition:0.3s;}
@@ -124,6 +148,59 @@ header p{color:#d0c0ff;}
   <div class="item" data-nama="Ramuan Es" data-img="images/potion-fire.png"><img src="images/potion-fire.png"><h3>Ramuan Es</h3><button onclick="tambahKeranjang('Ramuan Es')">Beli</button></div>
 </div>
 </div>
+<!-- Kategori Buku Sihir -->
+<div class="kategori">
+<h2 onclick="toggleItems(this)">📚 Buku Sihir</h2>
+<div class="items">
+  <div class="item" data-nama="Grimoire Elemental" data-img="images/book-elemental.png">
+    <img src="images/book-elemental.png">
+    <h3>Grimoire Elemental</h3>
+    <button onclick="tambahKeranjang('Grimoire Elemental')">Beli</button>
+  </div>
+  <div class="item" data-nama="Kitab Kegelapan" data-img="images/book-dark.png">
+    <img src="images/book-dark.png">
+    <h3>Kitab Kegelapan</h3>
+    <button onclick="tambahKeranjang('Kitab Kegelapan')">Beli</button>
+  </div>
+  <div class="item" data-nama="Buku Cahaya Abadi" data-img="images/book-light.png">
+    <img src="images/book-light.png">
+    <h3>Buku Cahaya Abadi</h3>
+    <button onclick="tambahKeranjang('Buku Cahaya Abadi')">Beli</button>
+  </div>
+  <div class="item" data-nama="Necronomicon" data-img="images/book-necro.png">
+    <img src="images/book-necro.png">
+    <h3>Necronomicon</h3>
+    <button onclick="tambahKeranjang('Necronomicon')">Beli</button>
+  </div>
+</div>
+</div>
+
+<!-- Kategori Jimat -->
+<div class="kategori">
+<h2 onclick="toggleItems(this)">🔮 Jimat</h2>
+<div class="items">
+  <div class="item" data-nama="Jimat Pelindung" data-img="images/amulet-protect.png">
+    <img src="images/amulet-protect.png">
+    <h3>Jimat Pelindung</h3>
+    <button onclick="tambahKeranjang('Jimat Pelindung')">Beli</button>
+  </div>
+  <div class="item" data-nama="Jimat Keberuntungan" data-img="images/amulet-luck.png">
+    <img src="images/amulet-luck.png">
+    <h3>Jimat Keberuntungan</h3>
+    <button onclick="tambahKeranjang('Jimat Keberuntungan')">Beli</button>
+  </div>
+  <div class="item" data-nama="Jimat Kekuatan" data-img="images/amulet-power.png">
+    <img src="images/amulet-power.png">
+    <h3>Jimat Kekuatan</h3>
+    <button onclick="tambahKeranjang('Jimat Kekuatan')">Beli</button>
+  </div>
+  <div class="item" data-nama="Jimat Penyembuh" data-img="images/amulet-heal.png">
+    <img src="images/amulet-heal.png">
+    <h3>Jimat Penyembuh</h3>
+    <button onclick="tambahKeranjang('Jimat Penyembuh')">Beli</button>
+  </div>
+</div>
+</div>
 
 <!-- Keranjang -->
 <div id="keranjang">
@@ -133,18 +210,45 @@ header p{color:#d0c0ff;}
 </div>
 </main>
 
+
 <script>
 // toggle kategori
+// toggle kategori + animasi summon
 function toggleItems(el){
   let items = el.nextElementSibling;
-  items.style.display = (items.style.display === "grid") ? "none" : "grid";
-}
 
+  if(items.style.display === "grid"){
+    // kalau sudah terbuka, tutup
+    items.style.display = "none";
+  } else {
+    // tutup semua kategori lain dulu
+    document.querySelectorAll(".items").forEach(c=>{
+      c.style.display="none";
+    });
+
+    // buka kategori yg dipencet
+    items.style.display = "grid";
+
+    // animasi tiap item muncul bergiliran
+    items.querySelectorAll(".item").forEach((it,idx)=>{
+      it.classList.remove("show"); // reset
+      setTimeout(()=> it.classList.add("show"), idx*120);
+    });
+  }
+}
 // keranjang
 let keranjang = [];
-function tambahKeranjang(item){
+function tambahKeranjang(item, btn){
   keranjang.push(item);
   updateKeranjang();
+
+  // tampilkan teks
+  const text = btn.nextElementSibling;
+  text.textContent = "ditambahkan keranjang";
+  text.style.display = "block";
+
+  // hilangkan teks setelah 2 detik
+  setTimeout(()=>{ text.style.display = "none"; }, 2000);
 }
 function updateKeranjang(){
   let list=document.getElementById("listKeranjang");
@@ -179,21 +283,45 @@ document.getElementById("searchInput").addEventListener("input",function(){
   container.innerHTML="";
   if(val){
     resultBox.style.display="block";
-    allData.filter(d=>d.nama.toLowerCase().includes(val)).forEach(d=>{
-      let card=document.createElement("div");
-      card.className="item";
-      card.innerHTML=`
-        <img src="${d.img}" alt="${d.nama}">
-        <h3>${d.nama}</h3>
-        <button onclick="tambahKeranjang('${d.nama}')">Beli</button>
-      `;
-      container.appendChild(card);
-    });
+    allData.filter(d=>d.nama.toLowerCase().includes(val)).forEach((d,idx)=>{
+  let card=document.createElement("div");
+  card.className="item";
+  card.innerHTML=`
+    <img src="${d.img}" alt="${d.nama}">
+    <h3>${d.nama}</h3>
+    <button onclick="tambahKeranjang('${d.nama}')">Beli</button>
+  `;
+  container.appendChild(card);
+
+  // kasih efek summon juga biar konsisten
+  setTimeout(()=> card.classList.add("show"), idx*120);
+});
     window.scrollTo({top:0,behavior:"smooth"});
   }else{
     resultBox.style.display="none";
   }
 });
+// ===== Tambah teks "Item sudah ditambahkan di keranjang" otomatis untuk semua tombol =====
+document.querySelectorAll(".item button").forEach(btn => {
+  // buat <p> untuk teks
+  const p = document.createElement("p");
+  p.className = "keranjang-text";
+  p.style.display = "none";
+  p.style.color = "lightpurple";
+  p.style.marginTop = "5px";
+
+  // taruh <p> setelah tombol
+  btn.parentNode.insertBefore(p, btn.nextSibling);
+
+  // ambil nama item dari data-nama
+  const itemName = btn.parentNode.dataset.nama;
+
+  // ubah onclick supaya pakai fungsi tambahKeranjang dengan btn
+  btn.onclick = () => {
+    tambahKeranjang(itemName, btn);
+  }
+});
 </script>
 </body>
-</html>
+                                                                                                                               </html>
+  
