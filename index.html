@@ -136,11 +136,57 @@ body {
 #searchResults .items{display:grid !important;}
 </style>
 </head>
+  <head>
+  <meta charset="UTF-8">
+  <title>Warung Isekai</title>
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+
+  <style>
+    body { 
+      margin:0; 
+      font-family:Poppins,sans-serif;
+      background:linear-gradient(135deg,#1a1a40,#2e166f,#0f052d);
+      color:white;
+    }
+
+    /* Judul Keren */
+    .judul {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 3.5rem;
+      text-align: center;
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, #ff4ecd, #8a2be2, #4facfe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.15);
+      text-shadow: 
+        0 0 6px rgba(173, 109, 255, 0.7),
+        0 0 12px rgba(123, 59, 255, 0.5),
+        0 0 18px rgba(80, 0, 255, 0.3);
+      animation: glowLoop 3s infinite alternate;
+    }
+
+    @keyframes glowLoop {
+      from {
+        text-shadow:
+          0 0 8px rgba(173, 109, 255, 0.7),
+          0 0 16px rgba(123, 59, 255, 0.5);
+      }
+      to {
+        text-shadow:
+          0 0 14px rgba(255, 109, 255, 0.9),
+          0 0 24px rgba(173, 59, 255, 0.7),
+          0 0 40px rgba(100, 0, 255, 0.5);
+      }
+    }
+  </style>
+</head>
+
 
 <body>
   <!-- Header -->
   <header class="hero">
-    <h1>Warung Isekai</h1>
+    <h1 class="judul">Warung Isekai</h1>
     <p>Tempat jual perlengkapan isekai by Yukii ✨</p>
   </header>
 </body>
