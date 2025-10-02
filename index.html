@@ -4,18 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Warung Isekai - by Yukii</title>
-<style>
-/* Efek muncul (summon) */
-.item {
-  opacity: 0;
-  transform: translateY(15px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-}
 
-.item.show {
-  opacity: 1;
-  transform: translateY(0);
-}
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+
+<style>
 body {
   margin:0;
   font-family:Poppins,sans-serif;
@@ -24,15 +17,6 @@ body {
   color:white;
 }
 
-/* Header */
-<header>
-  <div class="hero">
-    <h1>Warung Isekai</h1>
-    <p>Tempat jual perlengkapan isekai by Yukii ✨</p>
-  </div>
-</header>
-
-<style>
 /* Container judul */
 .hero {
   display: flex;
@@ -91,8 +75,6 @@ body {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-</style>
-
 
 /* Search */
 .search-bar{display:flex;justify-content:center;margin:1.5rem;}
@@ -109,19 +91,14 @@ body {
 .kategori h2{margin:0;padding:1rem;cursor:pointer;color:#e0d4ff;text-shadow:0 0 8px #9d4edd;}
 
 /* Items grid */
-/* Default untuk layar besar (PC/laptop) */
 .items {
   display:none;
   padding:1rem;
   grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
   gap:1.2rem;
 }
-
-/* Khusus layar kecil (HP) */
 @media (max-width:600px){
-  .items {
-    grid-template-columns:repeat(2,1fr); /* ✅ selalu 2 kolom di HP */
-  }
+  .items { grid-template-columns:repeat(2,1fr); }
 }
 
 /* Item Card */
@@ -139,17 +116,13 @@ body {
 }
 .item button:hover,#checkout:hover{background:linear-gradient(135deg,#9d4edd,#c77dff);}
 
-/* Tombol X Hapus */
+/* Tombol X */
 .btn-x{
   margin-left:10px;
   background:linear-gradient(135deg,#7a33ff,#b400ff);
-  border:none;
-  width:26px;height:26px;
-  border-radius:50%;
-  color:white;font-weight:bold;
-  cursor:pointer;
-  line-height:24px;text-align:center;
-  transition:0.3s;
+  border:none;width:26px;height:26px;border-radius:50%;
+  color:white;font-weight:bold;cursor:pointer;
+  line-height:24px;text-align:center;transition:0.3s;
 }
 .btn-x:hover{background:linear-gradient(135deg,#9d4edd,#c77dff);}
 
@@ -158,17 +131,20 @@ body {
 #keranjang h2{margin-top:0;color:#f3e8ff;text-shadow:0 0 8px #9d4edd;}
 
 /* Search Results */
-/* Box hasil pencarian */
-#searchResults{display:none;margin:1rem;border-radius:14px;background:rgba(255,255,255,0.08);}  
+#searchResults{display:none;margin:1rem;border-radius:14px;background:rgba(255,255,255,0.08);}
 #searchResults h2{margin:0;padding:1rem;color:#ffd6ff;text-shadow:0 0 8px #c77dff;}
 #searchResults .items{display:grid !important;}
 </style>
 </head>
+
 <body>
-<header>
-  <h1>Warung Isekai</h1>
-  <p>Tempat jual perlengkapan isekai by Yukii ✨</p>
-</header>
+  <!-- Header -->
+  <header class="hero">
+    <h1>Warung Isekai</h1>
+    <p>Tempat jual perlengkapan isekai by Yukii ✨</p>
+  </header>
+</body>
+</html>
 
 <!-- Search -->
 <div class="search-bar">
