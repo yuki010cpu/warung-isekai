@@ -1,4 +1,3 @@
-
 // External library imports
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
@@ -384,12 +383,12 @@ const NotFoundPage: React.FC = () => (
 
 // --- From App.tsx ---
 const AboutPage: React.FC = () => (
-  <div className="flex flex-col items-center justify-center h-full text-center">
+  <div className="flex flex-col items-center justify-center h-full text-center py-10">
     <h1 className="text-4xl font-bold text-[#00ffc6] mb-4">Tentang ENIM TOD</h1>
-    <p className="max-w-2xl">
-      ENIM TOD adalah proyek website streaming anime yang dibuat denga rasa malas,
-      menggunakan teknologi  canggih seperti Bahlil, Mulyono, dan Jawa Koenji. 
-      Kami mengambil data dari NEKOPOI untuk menyajikan informasi anime terkini.
+    <p className="max-w-2xl text-gray-300 leading-relaxed">
+      ENIM TOD adalah proyek website streaming anime yang dibuat dengan rasa malas,
+      menggunakan teknologi canggih seperti Bahlil, Mulyono, dan Jawa Koenji. 
+      Kami mengambil data dari Jikan API untuk menyajikan informasi anime terkini.
       Website ini didesain dengan tema gelap yang elegan untuk kenyamanan mata Anda saat menjelajahi dunia anime.
     </p>
   </div>
@@ -397,7 +396,7 @@ const AboutPage: React.FC = () => (
 const App: React.FC = () => {
   const [isAppLoading, setIsAppLoading] = useState(true);
   useEffect(() => {
-    const timer = setTimeout(() => { setIsAppLoading(false); }, 2000);
+    const timer = setTimeout(() => { setIsAppLoading(false); }, 1500);
     return () => clearTimeout(timer);
   }, []);
   if (isAppLoading) { return <LoadingScreen />; }
