@@ -76,9 +76,24 @@ const getAnimeDetails = async (id: string): Promise<Anime> => {
 };
 
 // --- From services/geminiService.ts ---
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// PENTING: Ganti "MASUKKAN_API_KEY_ANDA_DI_SINI" dengan Google AI API key Anda yang sebenarnya.
+// Untuk menjaga kerahasiaan kunci Anda, jangan bagikan file ini secara publik setelah menambahkan kunci.
+const API_KEY = "AIzaSyDre_TsgJrh57tlmaav-TJsTLWOvBLdZag";
+
+let ai: GoogleGenAI | null = null;
+if (API_KEY && API_KEY !== "AIzaSyDre_TsgJrh57tlmaav-TJsTLWOvBLdZag") {
+  try {
+    ai = new GoogleGenAI({ apiKey: API_KEY });
+  } catch (error) {
+    console.error("Gagal menginisialisasi GoogleGenAI. Periksa API Key Anda.", error);
+  }
+}
+
 const translateText = async (text: string): Promise<string> => {
   if (!text) return "Tidak ada sinopsis.";
+  if (!ai) {
+    return "Fitur terjemahan nonaktif. Silakan konfigurasikan API Key dalam kode.";
+  }
   try {
     const prompt = `Translate the following anime synopsis to Indonesian. Keep the tone engaging and appropriate for an anime description. Do not add any extra commentary or introductory phrases like "Berikut terjemahannya:". Just provide the translated text directly.\n\nSynopsis:\n"""\n${text}\n"""`;
     const response = await ai.models.generateContent({ model: 'gemini-2.5-flash', contents: prompt });
@@ -88,6 +103,7 @@ const translateText = async (text: string): Promise<string> => {
     return "Gagal menerjemahkan sinopsis. Menampilkan teks asli.";
   }
 };
+
 
 // --- From components/LoadingSpinner.tsx ---
 const LoadingSpinner: React.FC = () => (
