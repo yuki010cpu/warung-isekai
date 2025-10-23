@@ -1,5 +1,0 @@
-{
-  "name": "ENIM TOD - Anime Streaming",
-  "description": "A modern, elegant, dark-themed anime streaming website that allows users to browse popular anime, search for titles, and view details. It uses the Jikan API for anime data and features a dummy streaming player.",
-  "requestFramePermissions": []
-}
