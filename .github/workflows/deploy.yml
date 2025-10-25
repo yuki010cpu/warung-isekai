@@ -1,12 +1,8 @@
-# 🌐 Workflow buat auto deploy website ke GitHub Pages
-name: Deploy static content to Pages
+name: Deploy Vite site to GitHub Pages
 
 on:
-  # Jalan otomatis pas kamu push ke branch utama
   push:
-    branches: ['main'] # ganti ke 'master' kalau branch kamu namanya master
-
-  # Bisa juga dijalankan manual dari tab Actions
+    branches: ['main']
   workflow_dispatch:
 
 permissions:
@@ -24,24 +20,31 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout (ambil kode)
+      - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Set up Node.js
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: 'npm'
-      - name: Install dependencies (pasang dependensi)
+
+      - name: Install dependencies
         run: npm install
-      - name: Build (bangun website)
+
+      - name: Build website
         run: npm run build
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
-      - name: Upload artifact
+
+      - name: Upload build files
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          path: './dist'  # folder hasil build dari Vite
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
