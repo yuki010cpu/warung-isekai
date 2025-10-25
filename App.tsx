@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import HomePage from './pages/HomePage';
+import HomePage from "./src/pages/HomePage";
 import SearchPage from './pages/SearchPage';
 import DetailPage from './pages/DetailPage';
 import LoadingScreen from './components/LoadingScreen';
