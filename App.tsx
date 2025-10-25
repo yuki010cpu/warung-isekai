@@ -5,12 +5,12 @@ import { HashRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import HomePage from "./src/pages/HomePage";
-import SearchPage from './pages/SearchPage';
-import DetailPage from './pages/DetailPage';
+import SearchPage from './src/pages/SearchPage';
+import DetailPage from './src/pages/DetailPage';
 import LoadingScreen from './components/LoadingScreen';
-import NotFoundPage from './pages/NotFoundPage';
-import OngoingPage from './pages/OngoingPage';
-import AnimeListPage from './pages/AnimeListPage';
+import NotFoundPage from './src/pages/NotFoundPage';
+import OngoingPage from './src/pages/OngoingPage';
+import AnimeListPage from './src/pages/AnimeListPage';
 
 const App: React.FC = () => {
   const [isAppLoading, setIsAppLoading] = useState(true);
